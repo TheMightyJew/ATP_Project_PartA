@@ -11,12 +11,12 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         int[][] array=newone.getArray();
         initArray(array);
         int startColumn=getRandomStart(columns);
-        newone.setStartPoint(new Pair<>(0,startColumn));
-        newone.setFinishPoint( generatePath(array,startColumn));
+        newone.setStartPosition(new Position(0,startColumn));
+        newone.setGoalPosition( generatePath(array,startColumn));
         newone.setArray(array);
         return newone;
     }
-    private Pair<Integer,Integer> generatePath(int[][] array, int column){
+    private Position generatePath(int[][] array, int column){
         int row=0;
         array[row][column]=0;
         row++;
@@ -37,7 +37,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                 if(array[i][j]==1)
                     if(Math.random()>0.5)
                         array[i][j]=0;
-        return new Pair<>(row,column);
+        return new Position(row,column);
     }
 }
 

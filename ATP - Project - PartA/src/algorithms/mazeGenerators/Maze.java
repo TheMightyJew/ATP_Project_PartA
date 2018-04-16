@@ -5,8 +5,8 @@ public class Maze {
     private int[][] array;
     private int rowsNum;
     private int columnsNum;
-    private Pair<Integer,Integer> startPoint;
-    private Pair<Integer,Integer> finishPoint;
+    private Position StartPosition;
+    private Position goalPosition;
     public Maze(int rows,int columns){
         rowsNum=rows;
         columnsNum=columns;
@@ -21,19 +21,26 @@ public class Maze {
         this.array = array;
     }
 
-    public Pair<Integer, Integer> getStartPoint() {
-        return startPoint;
+    public Position getStartPosition() {
+        return StartPosition;
     }
 
-    public void setStartPoint(Pair<Integer, Integer> startPoint) {
-        this.startPoint = startPoint;
+    public void setStartPosition(Position startPosition) {
+        StartPosition = startPosition;
     }
 
-    public Pair<Integer, Integer> getFinishPoint() {
-        return finishPoint;
+    public Position getGoalPosition() {
+        return goalPosition;
     }
 
-    public void setFinishPoint(Pair<Integer, Integer> finishPoint) {
-        this.finishPoint = finishPoint;
+    public void setGoalPosition(Position goalPosition) {
+        this.goalPosition = goalPosition;
+    }
+    public void print(){
+        for(int i=0;i<array.length;i++) {
+            for (int j = 0; j < array[0].length; j++)
+                System.out.print(array[i][j]);
+            System.out.println();
+        }
     }
 }

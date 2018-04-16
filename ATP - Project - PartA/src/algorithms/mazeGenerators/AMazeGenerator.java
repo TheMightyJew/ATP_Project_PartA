@@ -7,7 +7,7 @@ abstract class AMazeGenerator implements IMazeGenerator{
     public long measureAlgorithmTimeMillis(int rows, int columns){
         long time=System.currentTimeMillis();
         generate(rows,columns);
-        long ans=time-System.currentTimeMillis();
+        long ans=System.currentTimeMillis()-time;
         return ans;
     }
     protected void initArray(int [][] array){
