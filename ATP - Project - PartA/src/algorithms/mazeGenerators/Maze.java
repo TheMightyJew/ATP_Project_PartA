@@ -13,4 +13,27 @@ public class Maze {
         array=new int[rows][columns];
         //add generateMaze
     }
+    public int[][] getArray() {
+        return array;
+    }
+
+    public void setArray(int[][] array) {
+        this.array = array;
+    }
+
+    public Pair<Integer, Integer> getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(Pair<Integer, Integer> startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public Pair<Integer, Integer> getFinishPoint() {
+        return finishPoint;
+    }
+
+    public void setFinishPoint(Pair<Integer, Integer> finishPoint) {
+        this.finishPoint = finishPoint;
+    }
 }
