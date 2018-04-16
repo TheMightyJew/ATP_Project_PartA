@@ -16,20 +16,13 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         newone.setArray(array);
         return newone;
     }
-    private void initArray(int [][] array){
-        for(int i=0;i<array.length;i++)
-            for(int j=0;j<array[0].length;j++)
-                array[i][j]=1;
-    }
-    private int getRandomStart(int column){
-        int range=column;
-        return (int)(Math.random()*range);
-    }
-    private Pair<Integer,Integer> generatePath(int[][] array,int column){
+    private Pair<Integer,Integer> generatePath(int[][] array, int column){
         int row=0;
-        while(row<array.length){
+        array[row][column]=0;
+        row++;
+        while(row<array.length-1){
             array[row][column]=0;
-            if(column==array[0].length-1){
+            if(column==array[0].length-2){
                 row++;
                 continue;
             }
@@ -38,7 +31,13 @@ public class SimpleMazeGenerator extends AMazeGenerator {
             else
                 column++;
         }
-        return new Pair<>(row-1,column);
+        array[row][column]=0;
+        for (int i=1;i<array.length-1;i++)
+            for (int j=1;j<array[0].length-1;j++)
+                if(array[i][j]==1)
+                    if(Math.random()>0.5)
+                        array[i][j]=0;
+        return new Pair<>(row,column);
     }
 }
 
