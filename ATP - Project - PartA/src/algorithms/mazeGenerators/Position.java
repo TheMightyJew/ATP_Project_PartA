@@ -8,11 +8,11 @@ public class Position {
         return row;
     }
 
-    public void setRow(int row) {
+    public void setRowIndex(int row) {
         this.row = row;
     }
 
-    public int getColumn() {
+    public int getColumnIndex() {
         return column;
     }
 
@@ -28,9 +28,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "row=" + row +
-                ", column=" + column +
-                '}';
+        return "{"+row+","+column+'}';
     }
 }
