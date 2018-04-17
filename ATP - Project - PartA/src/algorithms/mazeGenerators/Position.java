@@ -4,11 +4,11 @@ public class Position {
     private int row;
     private int column;
 
-    public int getRow() {
+    public int getRowIndex() {
         return row;
     }
 
-    public void setRowIndex(int row) {
+    public void setRow(int row) {
         this.row = row;
     }
 

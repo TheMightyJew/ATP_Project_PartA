@@ -41,9 +41,9 @@ public class Maze {
     public void print(){
         for(int i=0;i<array.length;i++) {
             for (int j = 0; j < array[0].length; j++){
-                if(i== StartPosition.getRow() && j==StartPosition.getColumnIndex())
+                if(i== StartPosition.getRowIndex() && j==StartPosition.getColumnIndex())
                     System.out.print('S');
-                else if(i== goalPosition.getRow() && j==goalPosition.getColumnIndex())
+                else if(i== goalPosition.getRowIndex() && j==goalPosition.getColumnIndex())
                     System.out.print('E');
                 else System.out.print(array[i][j]);
             }

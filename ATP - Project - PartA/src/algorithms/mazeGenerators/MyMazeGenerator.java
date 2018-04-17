@@ -39,10 +39,10 @@ public class MyMazeGenerator extends AMazeGenerator {
             return max-1;
     }
     private Position generatePath(int[][] array,Position startingPosition){
-        int row=startingPosition.getRow(),column=startingPosition.getColumnIndex();
+        int row=startingPosition.getRowIndex(),column=startingPosition.getColumnIndex();
         array[row][column]=0;
         startingPosition=goOneAhead(startingPosition,array.length-1,array[0].length-1);
-        row=startingPosition.getRow();
+        row=startingPosition.getRowIndex();
         column=startingPosition.getColumnIndex();
         Stack<Integer> staki=new Stack<Integer>();
         int count=0;
@@ -89,14 +89,14 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
     private Position goOneAhead(Position startingPoint,int maxRow,int maxColumn){
         Position better=new Position(0,0);
-        if(startingPoint.getRow()==0)
-            better=new Position(startingPoint.getRow()+1,startingPoint.getColumnIndex());
-        else if (startingPoint.getRow()==maxRow)
-            better=new Position(startingPoint.getRow()-1,startingPoint.getColumnIndex());
+        if(startingPoint.getRowIndex()==0)
+            better=new Position(startingPoint.getRowIndex()+1,startingPoint.getColumnIndex());
+        else if (startingPoint.getRowIndex()==maxRow)
+            better=new Position(startingPoint.getRowIndex()-1,startingPoint.getColumnIndex());
         else if(startingPoint.getColumnIndex()==0)
-            better=new Position(startingPoint.getRow(),startingPoint.getColumnIndex()+1);
+            better=new Position(startingPoint.getRowIndex(),startingPoint.getColumnIndex()+1);
         else if (startingPoint.getColumnIndex()==maxColumn)
-            better=new Position(startingPoint.getRow(),startingPoint.getColumnIndex()-1);
+            better=new Position(startingPoint.getRowIndex(),startingPoint.getColumnIndex()-1);
         return better;
     }
     private boolean touchOnlyOne(int[][] array,int row,int column){
