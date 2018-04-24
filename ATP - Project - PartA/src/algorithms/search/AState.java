@@ -1,30 +1,14 @@
 package algorithms.search;
 
-abstract class AState {
-    int x;
-    int y;
+import java.util.Comparator;
 
-    public AState(int x, int y) {
-        this.x = x;
-        this.y = y;
+abstract public class AState implements Comparable {
+    public AState() {
     }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     abstract public boolean isGoalState(ISearchable game);
 
+    @Override
+    abstract  public String toString();
+    @Override
+    abstract public boolean equals(Object obj);
 }

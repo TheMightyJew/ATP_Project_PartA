@@ -9,11 +9,11 @@ public class Maze {
     private int columnsNum;
     private Position StartPosition;
     private Position goalPosition;
+
     public Maze(int rows,int columns){
         rowsNum=rows;
         columnsNum=columns;
         array=new int[rows][columns];
-        //add generateMaze
     }
     public int[][] getArray() {
         return array;

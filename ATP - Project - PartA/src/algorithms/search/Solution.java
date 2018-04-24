@@ -1,19 +1,24 @@
 package algorithms.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
-    private List<AState> answer;
+    private ArrayList<AState> answer;
 
-    public List<AState> getAnswer() {
+    public ArrayList<AState> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(List<AState> answer) {
+    public void setAnswer(ArrayList<AState> answer) {
         this.answer = answer;
     }
 
-    public Solution(List<AState> answer) {
+    public Solution(ArrayList<AState> answer) {
         this.answer = answer;
+    }
+
+    public ArrayList<AState> getSolutionPath() {
+        return answer;
     }
 }

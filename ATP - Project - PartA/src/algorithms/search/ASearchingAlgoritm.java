@@ -1,19 +1,16 @@
 package algorithms.search;
 
 abstract class ASearchingAlgoritm implements ISearchingAlgorithm {
-    ISearchable game;
-
-    public ASearchingAlgoritm(ISearchable game) {
-        this.game = game;
+    protected int nodesAvaluated;
+    protected String name;
+    public ASearchingAlgoritm() {
     }
-
-    abstract public Solution solve();
-
-    public ISearchable getGame() {
-        return game;
+    public String getName(){
+        return name;
     }
-
-    public void setGame(ISearchable game) {
-        this.game = game;
+    public int getNumberOfNodesEvaluated() {
+        return nodesAvaluated;
     }
+    abstract public Solution solve(ISearchable game);
+
 }

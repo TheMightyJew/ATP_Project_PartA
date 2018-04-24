@@ -21,28 +21,30 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public AState getStartState() {
-        return new MazeState(mazi.getStartPosition().getRowIndex(),mazi.getStartPosition().getColumnIndex());
+        return new MazeState(mazi.getStartPosition().getRowIndex(),mazi.getStartPosition().getColumnIndex(),null);
     }
 
     @Override
     public AState getGoalState() {
-        return new MazeState(mazi.getGoalPosition().getRowIndex(),mazi.getGoalPosition().getColumnIndex());
+        return new MazeState(mazi.getGoalPosition().getRowIndex(),mazi.getGoalPosition().getColumnIndex(),null);
     }
 
     @Override
-    public List<AState> getAllSuccessors(AState stati) {
+    public List<AState> getAllSuccessors(AState stati){
+        if(!(stati instanceof MazeState))
+            return null;
         List<AState> ans=new ArrayList<>();
         int[][] array=mazi.getArray();
-        int x=stati.getX();
-        int y=stati.getY();
-        if(x+1>=0 && x+1<array.length && y>=0 && y<array.length && array[x+1][y]==0)
-            ans.add(new MazeState(x+1,y));
-        if(x-1>=0 && x-1<array.length && y>=0 && y<array.length && array[x-1][y]==0)
-            ans.add(new MazeState(x-1,y));
-        if(x>=0 && x<array.length && y+1>=0 && y+1<array.length && array[x][y+1]==0)
-            ans.add(new MazeState(x,y+1));
-        if(x>=0 && x<array.length && y-1>=0 && y-1<array.length && array[x][y-1]==0)
-            ans.add(new MazeState(x,y-1));
+        int x=((MazeState)stati).getX();
+        int y=((MazeState)stati).getY();
+        if(x+1>=0 && x+1<array.length && y>=0 && y<array[0].length && array[x+1][y]==0)
+            ans.add(new MazeState(x+1,y,stati));
+        if(x-1>=0 && x-1<array.length && y>=0 && y<array[0].length && array[x-1][y]==0)
+            ans.add(new MazeState(x-1,y,stati));
+        if(x>=0 && x<array.length && y+1>=0 && y+1<array[0].length && array[x][y+1]==0)
+            ans.add(new MazeState(x,y+1,stati));
+        if(x>=0 && x<array.length && y-1>=0 && y-1<array[0].length && array[x][y-1]==0)
+            ans.add(new MazeState(x,y-1,stati));
         return ans;
     }
 }

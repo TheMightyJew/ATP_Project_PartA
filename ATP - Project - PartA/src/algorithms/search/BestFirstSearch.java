@@ -1,12 +1,13 @@
 package algorithms.search;
 
-public class BestFirstSearch extends ASearchingAlgoritm {
-    public BestFirstSearch(ISearchable game) {
-        super(game);
-    }
+import java.util.LinkedList;
+import java.util.PriorityQueue;
 
-    @Override
-    public Solution solve() {
-        return null;
+public class BestFirstSearch extends BreadthFirstSearch {
+    public BestFirstSearch() {
+        name="BestFirstSearch";
+        nodesAvaluated=0;
+        tor=new LinkedList<AState>();
+        tor=new PriorityQueue<>();
     }
 }
