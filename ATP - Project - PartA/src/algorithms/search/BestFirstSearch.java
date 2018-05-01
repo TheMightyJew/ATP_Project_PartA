@@ -8,6 +8,6 @@ public class BestFirstSearch extends BreadthFirstSearch {
         name="BestFirstSearch";
         nodesAvaluated=0;
         visited=new LinkedHashMap<>();
-        tor=new PriorityQueue<>();
+        tor=new PriorityQueue<>((o1,o2) -> o1.compareTo(o2));
     }
 }

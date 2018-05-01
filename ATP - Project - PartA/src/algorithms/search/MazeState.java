@@ -18,8 +18,8 @@ public class MazeState extends AState{
         this.y = y;
     }
 
-    public MazeState(int X, int Y,AState cameFrom) {
-        super();
+    public MazeState(int X, int Y,AState cameFrom,int cost) {
+        super(cost);
         x=X;
         y=Y;
     }
@@ -41,6 +41,8 @@ public class MazeState extends AState{
     }
     @Override
     public int compareTo(Object o) {
-        return 0;
+        if(!(o instanceof MazeState))
+            return 1;
+        return (this.getCost().compareTo((((MazeState) o).getCost())));
     }
 }

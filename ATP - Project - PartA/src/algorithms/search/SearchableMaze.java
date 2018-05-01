@@ -21,12 +21,12 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public AState getStartState() {
-        return new MazeState(mazi.getStartPosition().getRowIndex(),mazi.getStartPosition().getColumnIndex(),null);
+        return new MazeState(mazi.getStartPosition().getRowIndex(),mazi.getStartPosition().getColumnIndex(),null,0);
     }
 
     @Override
     public AState getGoalState() {
-        return new MazeState(mazi.getGoalPosition().getRowIndex(),mazi.getGoalPosition().getColumnIndex(),null);
+        return new MazeState(mazi.getGoalPosition().getRowIndex(),mazi.getGoalPosition().getColumnIndex(),null,0);
     }
 
     @Override
@@ -37,14 +37,35 @@ public class SearchableMaze implements ISearchable {
         int[][] array=mazi.getArray();
         int x=((MazeState)stati).getX();
         int y=((MazeState)stati).getY();
-        if(x+1>=0 && x+1<array.length && y>=0 && y<array[0].length && array[x+1][y]==0)
-            ans.add(new MazeState(x+1,y,stati));
-        if(x-1>=0 && x-1<array.length && y>=0 && y<array[0].length && array[x-1][y]==0)
-            ans.add(new MazeState(x-1,y,stati));
-        if(x>=0 && x<array.length && y+1>=0 && y+1<array[0].length && array[x][y+1]==0)
-            ans.add(new MazeState(x,y+1,stati));
-        if(x>=0 && x<array.length && y-1>=0 && y-1<array[0].length && array[x][y-1]==0)
-            ans.add(new MazeState(x,y-1,stati));
+        boolean up=false,down=false,left=false,right=false;
+        if(x+1>=0 && x+1<array.length && y>=0 && y<array[0].length && array[x+1][y]==0){
+            ans.add(new MazeState(x+1,y,stati,0));
+            if(x+1>=0 && x+1<array.length && y+1>=0 && y+1<array[0].length && array[x+1][y+1]==0)
+                ans.add(new MazeState(x+1,y+1,stati,0));
+            if(x+1>=0 && x+1<array.length && y-1>=0 && y-1<array[0].length && array[x+1][y-1]==0)
+                ans.add(new MazeState(x+1,y-1,stati,0));
+        }
+        if(x-1>=0 && x-1<array.length && y>=0 && y<array[0].length && array[x-1][y]==0) {
+            ans.add(new MazeState(x - 1, y, stati, 0));
+            if(x-1>=0 && x-1<array.length && y+1>=0 && y+1<array[0].length && array[x-1][y+1]==0)
+                ans.add(new MazeState(x-1,y+1,stati,0));
+            if(x-1>=0 && x-1<array.length && y-1>=0 && y-1<array[0].length && array[x-1][y-1]==0)
+                ans.add(new MazeState(x-1,y-1,stati,0));
+        }
+        if(x>=0 && x<array.length && y+1>=0 && y+1<array[0].length && array[x][y+1]==0) {
+            ans.add(new MazeState(x, y + 1, stati, 0));
+            if(x+1>=0 && x+1<array.length && y+1>=0 && y+1<array[0].length && array[x+1][y+1]==0)
+                ans.add(new MazeState(x+1,y+1,stati,0));
+            if(x-1>=0 && x-1<array.length && y+1>=0 && y+1<array[0].length && array[x-1][y+1]==0)
+                ans.add(new MazeState(x-1,y+1,stati,0));
+        }
+        if(x>=0 && x<array.length && y-1>=0 && y-1<array[0].length && array[x][y-1]==0) {
+            ans.add(new MazeState(x, y - 1, stati, 0));
+            if(x+1>=0 && x+1<array.length && y-1>=0 && y-1<array[0].length && array[x+1][y-1]==0)
+                ans.add(new MazeState(x+1,y-1,stati,0));
+            if(x-1>=0 && x-1<array.length && y-1>=0 && y-1<array[0].length && array[x-1][y-1]==0)
+                ans.add(new MazeState(x-1,y-1,stati,0));
+        }
         return ans;
     }
 }
