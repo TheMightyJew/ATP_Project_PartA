@@ -17,6 +17,29 @@ public class Maze {
         columnsNum=columns;
         array=new int[rows][columns];
     }
+    public Maze(byte[] arr){
+        int j,i,sum;
+        int[] Details=new int[6];
+        for(j=0,i=0;j<6;i=i+1,j=j+1){
+            sum=0;
+            while(arr[i]!=-128){
+                if(arr[i]<0)
+                    sum=sum+127-arr[i];
+                else sum=sum+arr[i];
+                i++;
+            }
+            Details[j]=sum;
+        }
+        StartPosition=new Position(Details[0],Details[1]);
+        goalPosition=new Position(Details[2],Details[3]);
+        rowsNum=Details[4];
+        columnsNum=Details[5];
+        array=new int[rowsNum][columnsNum];
+        int row,col;
+        for (row=0;row<rowsNum;row++)
+            for(col=0;col<columnsNum;col++,i++)
+                array[row][col]=arr[i];
+    }
     public int[][] getArray() {
         return array;
     }
