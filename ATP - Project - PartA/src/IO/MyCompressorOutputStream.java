@@ -50,5 +50,6 @@ public class MyCompressorOutputStream extends OutputStream {
             finalAns[k]=(byte)(ans.get(k));
         out.writeObject(finalAns);
         out.flush();
+        out.close();
     }
 }
