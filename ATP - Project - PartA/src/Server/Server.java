@@ -1,6 +1,7 @@
 package Server;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -11,6 +12,15 @@ public class Server {
     private int listeningInterval;
     private IServerStrategy serverStrategy;
     private volatile boolean stop;
+    private static int solvedNum=0;
+
+    public static int getSolvedNum() {
+        return solvedNum;
+    }
+
+    public static void upSolvedNum(int solvedNum) {
+        Server.solvedNum++;
+    }
 
     public Server(int port, int listeningInterval, IServerStrategy serverStrategy) {
         this.port = port;
@@ -45,7 +55,6 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-
             serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.getInputStream().close();
             clientSocket.getOutputStream().close();

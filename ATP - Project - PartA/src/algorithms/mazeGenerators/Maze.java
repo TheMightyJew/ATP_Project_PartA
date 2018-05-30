@@ -1,11 +1,13 @@
 package algorithms.mazeGenerators;
 import javafx.util.Pair;
+
+import java.io.Serializable;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Maze {
+public class Maze implements Serializable {
     private int[][] array;
     private int rowsNum;
     private int columnsNum;

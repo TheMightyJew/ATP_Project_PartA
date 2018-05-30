@@ -1,6 +1,7 @@
 package IO;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -9,15 +10,17 @@ import java.util.List;
 
 public class MyCompressorOutputStream extends OutputStream {
 
-    private OutputStream out;
+    private ObjectOutputStream out;
 
-    public MyCompressorOutputStream(OutputStream out) {
-        this.out = out;
+    public MyCompressorOutputStream(OutputStream out) throws IOException {
+        this.out = new ObjectOutputStream(out);
     }
 
     @Override
     public void write(int b) throws IOException {
-        out.write(b);
+        out.writeObject(b);
+        out.flush();
+        out.close();
     }
     public void write(byte[] b) throws IOException {
         List ans=new ArrayList();
@@ -45,6 +48,7 @@ public class MyCompressorOutputStream extends OutputStream {
         finalAns=new byte[ans.size()];
         for(int k=0;k<ans.size();k++)
             finalAns[k]=(byte)(ans.get(k));
-        out.write(finalAns);
+        out.writeObject(finalAns);
+        out.flush();
     }
 }
