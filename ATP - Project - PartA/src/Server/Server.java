@@ -1,13 +1,15 @@
 package Server;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.*;
 
-public class Server {
+public class Server  implements Serializable{
     private int port;
     private int listeningInterval;
     private IServerStrategy serverStrategy;
@@ -55,9 +57,11 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            clientSocket.getInputStream().close();
-            clientSocket.getOutputStream().close();
+            InputStream input=clientSocket.getInputStream();
+            OutputStream output=clientSocket.getOutputStream();
+            serverStrategy.serverStrategy(input, output);
+            input.close();
+            output.close();
             clientSocket.close();
         } catch (IOException e) {
             System.out.println("IOException");

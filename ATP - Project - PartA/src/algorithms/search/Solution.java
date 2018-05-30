@@ -1,9 +1,10 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution {
+public class Solution implements Serializable {
     private ArrayList<AState> answer;
 
     public ArrayList<AState> getAnswer() {

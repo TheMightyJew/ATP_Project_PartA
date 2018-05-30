@@ -2,7 +2,9 @@ package algorithms.search;
 
 import algorithms.mazeGenerators.Maze;
 
-public class MazeState extends AState{
+import java.io.Serializable;
+
+public class MazeState extends AState implements Serializable{
     private int x;
     private int y;
     public int getX() {
@@ -23,6 +25,7 @@ public class MazeState extends AState{
         x=X;
         y=Y;
     }
+
 
     public boolean isGoalState(ISearchable game) {
         if(game instanceof Maze && ((Maze)game).getGoalPosition().getRowIndex()==getX() && ((Maze)game).getGoalPosition().getColumnIndex()==getY())

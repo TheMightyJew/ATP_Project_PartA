@@ -7,6 +7,7 @@ abstract public class AState implements Comparable {
     public AState(int prio) {
         cost=prio;
     }
+    public AState(){cost=0;}
     abstract public boolean isGoalState(ISearchable game);
 
     public Integer getCost() {

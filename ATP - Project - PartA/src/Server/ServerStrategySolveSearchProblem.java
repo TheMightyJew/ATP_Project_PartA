@@ -16,16 +16,19 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             toClient.flush();
-            byte[] compressedMaze = (byte[]) ((Maze)fromClient.readObject()).toByteArray();
+            Maze maze=((Maze)fromClient.readObject());
+            byte[] byteMaze = (byte[]) maze.toByteArray();
             String tempDirectoryPath = System.getProperty("java.io.tmpdir");
             File dir=new File(tempDirectoryPath);
             boolean done=false;
             for(File fileEntry : dir.listFiles()){
+                if(fileEntry.isDirectory() || !fileEntry.getName().contains("Sol"))
+                    continue;
                 FileInputStream fis=new FileInputStream(fileEntry);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 byte[] key=(byte[])ois.readObject();
                 Solution value=(Solution)ois.readObject();
-                if(key.equals(compressedMaze)){
+                if(key.equals(byteMaze)){
                     toClient.writeObject(value);
                     done=true;
                     ois.close();
@@ -33,20 +36,17 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 }
             }
             if(!done){
-                InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                byte[] decompressedMaze = new byte[compressedMaze.length*10];
-                is.read(decompressedMaze);
-                Maze maze=new Maze(decompressedMaze);
                 SearchableMaze sMaze=new SearchableMaze(maze);
                 BreadthFirstSearch search=new BreadthFirstSearch();
-                Solution ans=search.solve(sMaze);
+                Solution ans=(Solution)search.solve(sMaze);
                 toClient.writeObject(ans);
-                String newFile="Sol"+Server.getSolvedNum();
+                String newFile=tempDirectoryPath+"/Sol"+Server.getSolvedNum();
                 FileOutputStream fos=new FileOutputStream(newFile);
                 ObjectOutputStream oos=new ObjectOutputStream(fos);
-                oos.writeObject(compressedMaze);
+                oos.writeObject(maze.toByteArray());
                 oos.flush();
                 oos.writeObject(ans);
+                toClient.writeObject(ans);
                 oos.flush();
                 oos.close();
             }
