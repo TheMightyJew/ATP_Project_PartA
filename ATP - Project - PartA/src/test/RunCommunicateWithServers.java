@@ -13,7 +13,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-
+/**
+ * Created by Aviadjo on 3/27/2017.
+ */
 public class RunCommunicateWithServers {
     public static void main(String[] args) {
         //Initializing servers
@@ -49,13 +51,9 @@ public class RunCommunicateWithServers {
                         int[] mazeDimensions = new int[]{50, 50};
                         toServer.writeObject(mazeDimensions); //send maze dimensions to server
                         toServer.flush();
-                        int num=fromServer.available();
-                        /*while (num==0){
-                            num=fromServer.available();
-                        }*/
                         byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        byte[] decompressedMaze = new byte[50*50+50]; /*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/ //allocating byte[] for the decompressed maze -
+                        byte[] decompressedMaze = new byte[1000 /*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maze -
                         is.read(decompressedMaze); //Fill decompressedMaze with bytes
                         Maze maze = new Maze(decompressedMaze);
                         maze.print();
@@ -101,6 +99,7 @@ public class RunCommunicateWithServers {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+        int x=5;
     }
 
     private static void CommunicateWithServer_StringReverser() {

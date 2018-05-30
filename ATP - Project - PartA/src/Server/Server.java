@@ -53,6 +53,7 @@ public class Server  implements Serializable{
         } catch (IOException e) {
             System.out.println("IOException");
         }
+        threadPoolExecutor.shutdown();
     }
 
     private void handleClient(Socket clientSocket) {

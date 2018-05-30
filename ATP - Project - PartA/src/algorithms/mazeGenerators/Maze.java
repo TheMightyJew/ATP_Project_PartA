@@ -19,6 +19,14 @@ public class Maze implements Serializable {
         columnsNum=columns;
         array=new int[rows][columns];
     }
+    //oded
+    public Maze(int rows,int columns, int [][] p){
+        rowsNum=rows;
+        columnsNum=columns;
+        array=p;
+        StartPosition  =  new Position(1,0);
+        goalPosition = new Position(3,2);
+    }
     public Maze(byte[] arr){
         int j,i,sum;
         int[] Details=new int[6];

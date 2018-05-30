@@ -28,7 +28,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 byte[] key=(byte[])ois.readObject();
                 Solution value=(Solution)ois.readObject();
-                if(key.equals(byteMaze)){
+                if(CheckIfByteArrEquals(key,byteMaze)){
                     toClient.writeObject(value);
                     done=true;
                     ois.close();
@@ -57,5 +57,15 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean CheckIfByteArrEquals(byte[] key, byte[] byteMaze) {
+        if(key.length!=byteMaze.length)
+            return false;
+        for(int i=0 ; i<key.length; i++){
+            if(key[i] != byteMaze[i])
+                return false;
+        }
+        return true;
     }
 }
