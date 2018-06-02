@@ -3,10 +3,12 @@ package Server;
 import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.BreadthFirstSearch;
+import algorithms.search.ISearchingAlgorithm;
 import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
@@ -37,7 +39,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             }
             if(!done){
                 SearchableMaze sMaze=new SearchableMaze(maze);
-                BreadthFirstSearch search=new BreadthFirstSearch();
+                ISearchingAlgorithm search = (ISearchingAlgorithm) Class.forName(Server.Configurations.getProperty(Server.Configurations.prop.solveAlgo)).getConstructor().newInstance();
                 Solution ans=(Solution)search.solve(sMaze);
                 toClient.writeObject(ans);
                 String newFile=tempDirectoryPath+"/Sol"+Server.getSolvedNum();
@@ -54,7 +56,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             toClient.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

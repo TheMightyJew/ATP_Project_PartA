@@ -1,12 +1,10 @@
 package Server;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Properties;
 import java.util.concurrent.*;
 
 public class Server  implements Serializable{
@@ -36,7 +34,7 @@ public class Server  implements Serializable{
 
     private void runServer() {
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        threadPoolExecutor.setCorePoolSize(Runtime.getRuntime().availableProcessors() * 2);
+        threadPoolExecutor.setCorePoolSize(Integer.parseInt(Configurations.getProperty(Configurations.prop.threadsNum)));
         try {
             ServerSocket server = new ServerSocket(port);
             server.setSoTimeout(listeningInterval);
@@ -71,5 +69,52 @@ public class Server  implements Serializable{
 
     public void stop() {
         stop = true;
+    }
+    static class Configurations{
+        enum prop {threadsNum,solveAlgo,generateAlgo}
+        private static Properties pro = new Properties();
+        private Configurations() {
+        }
+        public static void setProperty(prop key, String value) {
+            OutputStream output = null;
+
+            try {
+                output = new FileOutputStream("Resources/config.properties");
+
+                pro.setProperty(key.name(), value);
+                pro.store(output, null);
+
+            } catch (IOException io) {
+                io.printStackTrace();
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        public static String getProperty(prop key) {
+            InputStream input = null;
+            String value = null;
+            try {
+                input = new FileInputStream("Resources/config.properties");
+                pro.load(input);
+                value = pro.getProperty(key.name());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } finally {
+                if (input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return value;
+        }
     }
 }

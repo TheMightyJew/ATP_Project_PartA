@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import IO.*;
 import algorithms.mazeGenerators.AMazeGenerator;
+import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import com.sun.xml.internal.bind.v2.util.ByteArrayOutputStreamEx;
@@ -16,7 +17,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             toClient.flush();
             int[] al = (int[])fromClient.readObject();
-            AMazeGenerator geni=new MyMazeGenerator();
+            IMazeGenerator geni = (IMazeGenerator) Class.forName(Server.Configurations.getProperty(Server.Configurations.prop.generateAlgo)).getConstructor().newInstance();
             Maze maze=geni.generate(al[0],al[1]);
             byte[] toStr=maze.toByteArray();
             ByteArrayOutputStream tmp=new ByteArrayOutputStream();
@@ -25,9 +26,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             toClient.writeObject(tmp.toByteArray());
             comp.flush();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
