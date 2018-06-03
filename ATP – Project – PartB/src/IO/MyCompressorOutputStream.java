@@ -12,17 +12,25 @@ public class MyCompressorOutputStream extends OutputStream {
 
     private ObjectOutputStream out;
 
-    public MyCompressorOutputStream(OutputStream out) throws IOException {
-        this.out = new ObjectOutputStream(out);
+    public MyCompressorOutputStream(OutputStream out){
+        try {
+            this.out = new ObjectOutputStream(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void write(int b) throws IOException {
-        out.writeObject(b);
-        out.flush();
-        out.close();
+    public void write(int b){
+        try {
+            out.writeObject(b);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    public void write(byte[] b) throws IOException {
+    public void write(byte[] b){
         List ans=new ArrayList();
         byte[] finalAns;
         int i=0,j=0;
@@ -48,8 +56,12 @@ public class MyCompressorOutputStream extends OutputStream {
         finalAns=new byte[ans.size()];
         for(int k=0;k<ans.size();k++)
             finalAns[k]=(byte)(ans.get(k));
-        out.writeObject(finalAns);
-        out.flush();
-        out.close();
+        try {
+            out.writeObject(finalAns);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

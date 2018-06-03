@@ -10,12 +10,16 @@ import java.util.List;
 public class MyDecompressorInputStream extends InputStream{
     private ObjectInputStream in;
 
-    public MyDecompressorInputStream(InputStream in)throws IOException {
-        this.in = new ObjectInputStream(in);
+    public MyDecompressorInputStream(InputStream in){
+        try {
+            this.in = new ObjectInputStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public int read() throws IOException {
+    public int read(){
         return 0;
     }
     private int getV(byte num){
@@ -23,10 +27,14 @@ public class MyDecompressorInputStream extends InputStream{
             return num;
         else return 127-num;
     }
-    public int read(byte[] to) throws IOException {
-        byte[] b;
+    public int read(byte[] to){
+        byte[] b=null;
         try {
-            b=(byte[])in.readObject();
+            try {
+                b=(byte[])in.readObject();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             List ans=new ArrayList();
             byte[] finalAns;
             int counter=0,i=0,rowsNum=0,colNum=0;

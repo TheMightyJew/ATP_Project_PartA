@@ -7,7 +7,6 @@ import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
-import com.sun.xml.internal.bind.v2.util.ByteArrayOutputStreamEx;
 
 public class ServerStrategyGenerateMaze implements IServerStrategy {
     @Override
